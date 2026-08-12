@@ -1,0 +1,4 @@
+interface:
+  display_name: "Convex Hackathon Log"
+  short_description: "Keep a judge-ready Convex hackathon build log"
+  default_prompt: "Use $convex-hackathon-skill to update my hackathon build log from the repository evidence."
