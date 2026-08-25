@@ -8,8 +8,6 @@ history when it can, and adds later progress without asking you to remember what
 changed. It does not commit, deploy, submit, score, or read your application
 database.
 
-This folder is ready for local testing. It has not been published or committed.
-
 ## What it does
 
 Run one skill while you build. It maintains one file at the root of your app:
@@ -44,13 +42,42 @@ without adding a release-notes system to the app.
 ## Install
 
 The package follows the open Agent Skills format. The shared `.agents/skills`
-location works with Codex, Cursor, and Factory Droid.
+location works with Codex, Cursor, and Factory Droid. Claude Code reads
+`.claude/skills` in a project and `~/.claude/skills` for your account, so use
+that path there instead.
+
+### Install for one project
+
+The skill needs two files: `SKILL.md` and `references/log-format.md`. Download
+them straight from this repository into your app.
+
+Codex, Cursor, Factory Droid, and other `.agents/skills` agents:
+
+```bash
+mkdir -p .agents/skills/convex-hackathon-skill/references
+curl -fsSL https://raw.githubusercontent.com/get-convex/convex-hackathon-skill/main/SKILL.md \
+  -o .agents/skills/convex-hackathon-skill/SKILL.md
+curl -fsSL https://raw.githubusercontent.com/get-convex/convex-hackathon-skill/main/references/log-format.md \
+  -o .agents/skills/convex-hackathon-skill/references/log-format.md
+```
+
+Claude Code:
+
+```bash
+mkdir -p .claude/skills/convex-hackathon-skill/references
+curl -fsSL https://raw.githubusercontent.com/get-convex/convex-hackathon-skill/main/SKILL.md \
+  -o .claude/skills/convex-hackathon-skill/SKILL.md
+curl -fsSL https://raw.githubusercontent.com/get-convex/convex-hackathon-skill/main/references/log-format.md \
+  -o .claude/skills/convex-hackathon-skill/references/log-format.md
+```
+
+Cloning the repository into the same folder works too. Keep `SKILL.md` and the
+`references/` subfolder together. `SKILL.md` loads `references/log-format.md`
+while it works.
 
 ### Install for your user account
 
-After this repository is published at
-`https://github.com/get-convex/convex-hackathon-skill`, install it once for all
-projects.
+Install once for all projects with a clone.
 
 macOS or Linux:
 
@@ -68,23 +95,10 @@ git clone https://github.com/get-convex/convex-hackathon-skill.git `
   "$HOME\.agents\skills\convex-hackathon-skill"
 ```
 
+For Claude Code, clone into `$HOME/.claude/skills/convex-hackathon-skill`
+instead.
+
 Restart the IDE or CLI if it was open during installation.
-
-### Install only for one project
-
-Copy the full package into your app:
-
-```text
-your-app/
-└── .agents/
-    └── skills/
-        └── convex-hackathon-skill/
-            ├── SKILL.md
-            ├── agents/
-            └── references/
-```
-
-Keep the whole folder. `SKILL.md` loads `references/log-format.md` while it works.
 
 ### Use another IDE or CLI
 
@@ -110,6 +124,7 @@ the syntax your agent supports.
 |---|---|---|
 | Codex app, IDE, or CLI | `$convex-hackathon-skill` | `$convex-hackathon-skill start` |
 | Cursor IDE or CLI | `/convex-hackathon-skill` | `/convex-hackathon-skill start` |
+| Claude Code | `/convex-hackathon-skill` | `/convex-hackathon-skill start` |
 | Factory Droid | `/convex-hackathon-skill` | `/convex-hackathon-skill start` |
 | Other compatible agent | `Update my Convex hackathon log` | `Start and backfill my Convex hackathon log` |
 
@@ -191,7 +206,8 @@ publish, or submit. Those stay separate user decisions.
 - Confirm the folder is named `convex-hackathon-skill`.
 - Confirm it contains `SKILL.md` directly inside it.
 - Confirm the package is under `.agents/skills` in the project or
-  `~/.agents/skills` for your user account.
+  `~/.agents/skills` for your user account. In Claude Code, use
+  `.claude/skills` or `~/.claude/skills`.
 - Restart the IDE or CLI, then inspect its skill list.
 
 ### The agent runs the wrong action
@@ -202,7 +218,7 @@ Use the full skill name and action:
 $convex-hackathon-skill start
 ```
 
-In Cursor or Droid, use `/convex-hackathon-skill start`.
+In Cursor, Claude Code, or Droid, use `/convex-hackathon-skill start`.
 
 ### The log repeats an entry
 
@@ -247,4 +263,3 @@ Follow the event's own rules for submitting private work.
 ## One next step
 
 Install it locally, open a Convex project, and run your first update.
-# convex-hackathon-skill

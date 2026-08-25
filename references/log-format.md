@@ -43,7 +43,7 @@ Keep these labels and this order. Omit `Event` when it is unknown. Use `none` or
   checked-in project docs. Omit it when unknown.
 - **What it does:** Write one factual sentence grounded in the app or its docs.
   Use `Not documented yet` if the purpose cannot be inferred.
-- **Live app:** Use one public app URL. Accept `*.convex.site`, `*.codex.site`,
+- **Live app:** Use one public app URL. Accept `*.convex.site`, `*.chatgpt.site`,
   custom domains, or another public frontend. Use `not deployed` when absent.
 - **Repo:** Use a normalized public remote URL, `private`, or `none`.
 - **Frontend:** Use `Codex Sites`, `Convex static hosting`, `Vercel`, `Netlify`,

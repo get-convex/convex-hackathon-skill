@@ -67,7 +67,15 @@ def main() -> None:
     ):
         assert package_file.is_file(), f"Missing package file: {package_file}"
 
+    # ChatGPT Sites URLs end in .chatgpt.site; codex.site does not exist.
+    log_format = (ROOT / "references" / "log-format.md").read_text(encoding="utf-8")
+    assert "*.chatgpt.site" in log_format, "Live app rule must accept *.chatgpt.site"
+    assert "codex.site" not in log_format, "codex.site is not a real URL suffix"
+
     for markdown_file in ROOT.rglob("*.md"):
+        # Skip hidden folders such as .git and .cursor; they are not package files.
+        if any(part.startswith(".") for part in markdown_file.relative_to(ROOT).parts[:-1]):
+            continue
         check_relative_links(markdown_file)
         contents = markdown_file.read_text(encoding="utf-8")
         assert "TODO" not in contents, f"Unresolved TODO in {markdown_file}"
