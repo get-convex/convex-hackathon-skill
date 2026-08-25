@@ -52,8 +52,14 @@ Keep these labels and this order. Omit `Event` when it is unknown. Use `none` or
 - **Convex deployment:** Use a public `*.convex.cloud` URL or `not deployed`.
 - **Components:** List only registered `@convex-dev/*` components, or `none`.
 - **Convex features:** Use short feature names backed by code, or `none yet`.
-- **Auth:** Use `Convex Auth`, `WorkOS`, `Clerk`, `Other`, or `none`.
-- **AI models:** Record model identifiers backed by evidence, or `none`.
+- **Auth:** Use `Convex Auth`, `WorkOS`, `Clerk`, `Other`, or `none`. The
+  `@convex-dev/auth` package plus `convex/auth.ts` or `convex/auth.config.ts`
+  proves Convex Auth; the beta and v2 alpha both use that package. A
+  `convex/auth.config.ts` that points at an external provider domain proves the
+  named third party provider.
+- **AI models:** Record model identifiers backed by evidence, or `none`. A
+  `convexGateway("provider/model")` call names the model directly; log that id
+  and note it runs through the Convex AI Gateway.
 - **Started:** Use the first meaningful commit time. Without Git, use the
   earliest trustworthy source-file modification time. Write UTC ISO 8601.
 - **Last updated:** Use the time of the latest logged evidence. Write UTC ISO
@@ -104,6 +110,9 @@ project wraps the Convex APIs.
 | `useQuery` | realtime queries |
 | `usePaginatedQuery` | paginated queries |
 | `app.use(` in `convex.config.ts` | registered component |
+| `@convex-dev/auth` plus `convex/auth.ts` or `auth.config.ts` | Convex Auth |
+| `convex/auth.config.ts` naming an external provider domain | that provider in Auth |
+| `convexGateway(` in an action | AI Gateway; its argument is the model id |
 
 Check all manifest dependency sections when identifying auth and component
 packages. Search nested manifests in monorepos. A package name proves only that
