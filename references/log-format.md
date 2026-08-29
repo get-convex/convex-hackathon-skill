@@ -89,6 +89,33 @@ Do not add another `working tree` entry for the same unchanged diff. Update the
 existing entry only when the uncommitted work itself changed and remains part of
 the same work session.
 
+## Write mail behavior without addresses
+
+A log entry about email is about what the code did, not who it wrote to. Never
+paste a real address, a `From` display name, or a person's name pulled from a
+message. Replace any address-shaped text with `[redacted inbox]` before saving.
+
+Do not write this:
+
+```markdown
+### 2026-08-28 - 4c1d90a
+Round trip proven. A claim went out from claims-1949@example.com, a human
+replied from Gmail, and the webhook routed the reply back onto the case.
+```
+
+Write this:
+
+```markdown
+### 2026-08-28 - 4c1d90a
+Round trip proven on the dev deployment. A claim sent from the case inbox, the
+reply arrived through the signed AgentMail webhook, and thread routing moved the
+case to negotiating (`convex/http.ts`, `convex/letters.ts`).
+```
+
+The rewrite keeps every fact a judge or reader needs: the provider, the signed
+webhook, the routing rule, and the files that prove it. Provider names, webhook
+paths, and env var names such as `AGENTMAIL_INBOX_ID` stay. Values do not.
+
 ## Convex detection guide
 
 Use code and configuration as proof. Match equivalent imports and names when a

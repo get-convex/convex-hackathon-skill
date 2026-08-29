@@ -191,10 +191,19 @@ not prove the app uses it.
 Assume `hackathon.md` will be public.
 
 The skill does not open real env files to fill the log. It also excludes API
-keys, tokens, passwords, cookies, private keys, personal contact details,
+keys, tokens, passwords, cookies, private keys, phone numbers, street addresses,
 private host names, precise locations, and database records. Public app and
 `*.convex.cloud` URLs are allowed when they appear in checked-in evidence or the
 user supplies them.
+
+Email addresses get their own rule, because a log about a mail feature is the
+easiest place to leak one. Sending and receiving inboxes, `From` display names,
+and a person's name taken from a message never reach the file. Before saving,
+the skill scans the whole log for address-shaped text and replaces each match
+with `[redacted inbox]`, then tells you in one line what it removed. That scan
+covers entries written earlier, so a log another tool produced gets cleaned on
+the next run. Provider names, webhook paths, and env var names such as
+`AGENTMAIL_INBOX_ID` stay in the log. Their values do not.
 
 The skill edits only `hackathon.md`. It does not create a commit, push, deploy,
 publish, or submit. Those stay separate user decisions.

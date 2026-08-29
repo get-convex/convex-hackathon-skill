@@ -56,6 +56,7 @@ def main() -> None:
         "Never create a Git commit",
         "Without Git",
         "working tree",
+        "[redacted inbox]",
     )
     for phrase in required_phrases:
         assert phrase in text, f"Missing required instruction: {phrase}"
@@ -71,6 +72,10 @@ def main() -> None:
     log_format = (ROOT / "references" / "log-format.md").read_text(encoding="utf-8")
     assert "*.chatgpt.site" in log_format, "Live app rule must accept *.chatgpt.site"
     assert "codex.site" not in log_format, "codex.site is not a real URL suffix"
+
+    # A mail feature is the easiest place to leak an address into a public log.
+    assert "[redacted inbox]" in log_format, "Log format must show the address rewrite"
+    assert "the case inbox" in log_format, "Log format must show the safe replacement"
 
     for markdown_file in ROOT.rglob("*.md"):
         # Skip hidden folders such as .git and .cursor; they are not package files.

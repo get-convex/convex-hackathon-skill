@@ -48,6 +48,9 @@ automatically. Do not require the user to know the start action.
    - If no commits, staged changes, working-tree changes, or newer source
      evidence exist, leave the file unchanged.
    - Do not add a duplicate entry just to refresh the timestamp.
+   - Run the redaction scan in **Protect public data** over the whole file, not
+     only the new entry, before saving. A file another tool wrote can still
+     carry personal data into this run.
 7. Report the result in a few lines. Show the new entry or say that the log was
    already current.
 
@@ -79,6 +82,17 @@ Treat `hackathon.md` as public.
 - Never include API keys, tokens, passwords, cookies, private keys, email
   addresses, phone numbers, street addresses, precise coordinates, private host
   names, or application database records.
+- Scan the drafted file for address-shaped text before saving: a local part, an
+  `@`, and a domain. Replace every match with `[redacted inbox]`, including
+  matches in entries that already existed. Then tell the user in one line what
+  was removed.
+- Redact a person's name that came from a message, an inbox, or a `From` display
+  name. A name the user gave as their own byline is fine.
+- Mail is a normal thing to build, so log the behavior instead of the address.
+  Signed webhook verification, thread routing, approval gates, escalation, and
+  delivery failures are all evidence. The sending address is not. Write
+  `the case inbox` or name the provider. Env var names such as
+  `AGENTMAIL_INBOX_ID` are safe to log; their values are not.
 - Remove secret or personal data from a requested entry and tell the user in one
   line what was omitted.
 - Do not call production APIs or query application data to make the log richer.
